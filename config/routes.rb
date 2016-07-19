@@ -6,8 +6,11 @@ Rails.application.routes.draw do
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
-  end
 
+  
+
+  end
+resources :users, only: [:show, :edit, :update, :destroy] 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"
@@ -16,6 +19,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+
+
+  #OMNIAUTH CODE
+  get "/auth/facebook/callback" => "sessions#create_from_omniauth"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
